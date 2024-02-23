@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celfar - Julian Andres Caracas</title>
+
+    <style>
+        h1{
+            text-align: center;   
+        }
+
+        form{
+            
+            text-align: center;
+            margin: 0 auto;
+            width: 300px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px #ccc;
+        }
+        
+        #celsius{
+            width: 100%;
+        }
+        
+        #resultado{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CELSIUS A FAHRENHEIT</h1>
+    
+    <form >
+
+        <label for="celsius">Grados Celsius: <span id="lb1_celsius">0</span></label>
+        <input type="range" id="celsius" min="-300" max="200" value="0" step="1" oninput="cambiarCelsius();">
+
+        <div id = "resultado">
+            0 Grados celsiudes son 32 grados fahrenheit
+        </div>
+
+    </form>
+   
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+
+    <script src="main.js"></script>
+    <script>
+        (async () => {
+            const model = await tf.loadLayersModel('/model.json');
+            console.log('Modelo cargado');
+        })();
+
+        function cambiarCelsius(){
+            let celsius = document.getElementById('celsius').value;
+            document.getElementById('lb1_celsius').innerText = celsius;
+
+            if(celsius == 0){
+                document.getElementById('resultado').innerText = '0 Grados celsiudes son 32 grados fahrenheit';
+            }else{
+                document.getElementById('resultado').innerText = `${celsius} Grados celsiudes son ${(celsius * 9 / 5) + 32} grados fahrenheit`;
+            }
+        }
+    </script>
+</body>
+</html>
